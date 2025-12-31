@@ -1,0 +1,8 @@
+{
+  "name": "AI Creative Studio",
+  "description": "A powerful browser-based media creation suite for generating AI images, searching stock footage, and processing videos with ffmpeg.wasm.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
