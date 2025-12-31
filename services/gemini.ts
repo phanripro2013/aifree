@@ -7,7 +7,7 @@ export const enhancePrompt = async (userInput: string): Promise<string> => {
   const ai = getAI();
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
-    contents: `Enhance this image generation prompt to be more artistic, detailed, and cinematic: "${userInput}". Only return the enhanced prompt text, nothing else.`,
+    contents: `Bạn là chuyên gia về Prompt Art. Hãy nâng cấp yêu cầu sau đây thành một prompt tiếng Anh chi tiết, nghệ thuật và điện ảnh cho mô hình Flux AI: "${userInput}". Chỉ trả về chuỗi prompt tiếng Anh cuối cùng, không giải thích thêm.`,
   });
   return response.text || userInput;
 };
@@ -16,7 +16,7 @@ export const getSearchKeywords = async (userInput: string): Promise<string[]> =>
   const ai = getAI();
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
-    contents: `Based on this description: "${userInput}", provide 3 simple English keywords for searching stock footage.`,
+    contents: `Phân tích mô tả video này: "${userInput}". Hãy cung cấp 3 từ khóa tìm kiếm (keywords) bằng tiếng Anh đơn giản để tìm footage phù hợp nhất trên Pexels. Trả về mảng JSON.`,
     config: {
       responseMimeType: "application/json",
       responseSchema: {
@@ -26,7 +26,8 @@ export const getSearchKeywords = async (userInput: string): Promise<string[]> =>
     }
   });
   try {
-    return JSON.parse(response.text);
+    const text = response.text || '[]';
+    return JSON.parse(text);
   } catch {
     return [userInput];
   }
